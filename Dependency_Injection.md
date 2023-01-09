@@ -26,3 +26,21 @@ Tanpa Dependency Injection
        var bar = new Bar();
 
        var fooBar = new FooBar(foo, bar);
+
+Spring Dependency Injection
+* Spring sejak awal dikenal dengan framework untuk Dependency Injection
+* Ketika kita membuat method untuk bean di Spring, kita bisa menambahkan parameter
+* Secara otomatis Spring akan mencarikan bean lain yang sesuai dengan tipe parameter tersebut
+* Jika ternyata tidak ada bean yang cocok, maka secara otomatis akan terjadi error
+* Dan jika ternyata terdapat bean lebih dari satu, secara otomatis akan terjadi error, kecuali terdapat primary bean
+
+Memilih Dependency
+* Kadang saat menggunakan DI, kita ingin memilih object mana yang ingin kita gunakan
+* Saat terdapat duplicate bean dengan tipe data yang sama, secara otomatis Spring akan memilih bean yang primary
+* Namun kita juga bisa memilih secara manual jika memang kita inginkan
+* Kita bisa menggunakan annotation @Qualifier(value=”namaBean”) pada parameter di method nya
+
+Circular Dependencies
+* Hati-hati dengan curcular dependencies
+* Circular dependencies adalah kasus dimana sebuah lingkaran dependency terjadi, misal bean A membutuhkan bean B, bean B membutuhkan bean C, dan ternyata bean C membutuhkan A
+* Jika terjadi cyclic seperti ini, secara otomatis Spring bisa mendeteksinya, dan akan mengganggap bahwa itu adalah error
