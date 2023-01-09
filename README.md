@@ -55,12 +55,22 @@ Application Context
 Configuration
 * Untuk membuat ApplicationContext menggunakan Annotation, pertama kita bisa perlu membuat Configuration class
 * Configuration Class adalah sebuah class yang terdapat annotation @Configuration pada class tersebut
+  
+      @Configuration
+       public class HelloWorldConfiguration {
+    
+       }
+
 
 Membuat Application Context
 * Selanjutnya, setelah membuat Class Configuration, kita bisa menggunakan class AnnotationConfigApplicationContext untuk membuat Application Context
 * [https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/AnnotationConfigApplicationContext.html] 
 * Kode : Membuat Application Context
- 
+         
+      ApplicatioContext context =
+         new AnnotationConfigurationApplicationContext(HelloWorldConfiguration.class);
+         
+      Assertions.assertNotNull(context);
  
  
 ### Singleton
@@ -101,8 +111,9 @@ Membuat Singleton di Java
 * Method tersebut perlu kita tambahkan annotation @Bean, untuk menandakan bahwa itu adalah bean
 * Secara otomatis Spring akan mengeksekusi method tersebut, dan return value nya akan dijadikan object bean secara otomatis, dan disimpan di container IoC
 * Kode : Membuat Bean
-    @Configuration
-    public class BeanConfiguration {
+       
+      @Configuration
+      public class BeanConfiguration {
     
       @Bean
       public Foo foo(){
@@ -114,4 +125,15 @@ Membuat Singleton di Java
 * Setelah kita membuat bean, secara otomatis semua object akan di-manage oleh Application Context
 * Untuk mengakses bean, kita bisa menggunakan method getBean milik Application Context
 * Kode : Mengakses Bean
+
+      Foo foo1 = applcationContext.getBean(Foo.class);
+      Foo foo2 = applcationContext.getBean(Foo.class);
+      
+      Assertions.assertions(foo1, foo2);
  
+--> getBean(Foo.class) : akan mengembalikan object yang sama, methodenya akan dieksekusi diawal
+
+###Duplicate Bean
+* Di Spring, kita bisa mendaftarkan beberapa bean dengan tipe yang sama 
+* Namun perlu diperhatikan, jika kita membuat bean dengan tipe data yang sama, maka kita harus menggunakan nama bean yang berbeda
+* Selain itu, saat kita mengakses bean nya, kita wajib menyebutkan nama bean nya, karena jika tidak, Spring akan bingung harus mengakses bean yang mana
