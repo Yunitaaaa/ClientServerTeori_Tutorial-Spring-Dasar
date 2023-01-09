@@ -61,7 +61,6 @@ Configuration
     
        }
 
-
 Membuat Application Context
 * Selanjutnya, setelah membuat Class Configuration, kita bisa menggunakan class AnnotationConfigApplicationContext untuk membuat Application Context
 * [https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/AnnotationConfigApplicationContext.html] 
@@ -72,7 +71,6 @@ Membuat Application Context
          
       Assertions.assertNotNull(context);
  
- 
 ### Singleton
 * Singleton adalah salah satu Design Patterns untuk pembuatan objek, dimana sebuah object hanya dibuat satu kali saja
 * Dan ketika kita membutuhkan object tersebut, kita hanya akan menggunakan object yang sama * [https://refactoring.guru/design-patterns/singleto] 
@@ -100,7 +98,6 @@ Membuat Singleton di Java
     
       }
 
- 
 ### Bean
 * Saat sebuah object kita masukkan kedalam Spring Container IoC, maka kita sebut object tersebut adalah Bean
 * Secara default, bean merupakan singleton, artinya jika kita mengakses bean yang sama, maka dia akan mengembalikan object yang sama. Kita juga bisa mengubahnya jika tidak ingin singleton, nanti akan kita bahas di materi tersendiri
@@ -137,3 +134,53 @@ Membuat Singleton di Java
 * Di Spring, kita bisa mendaftarkan beberapa bean dengan tipe yang sama 
 * Namun perlu diperhatikan, jika kita membuat bean dengan tipe data yang sama, maka kita harus menggunakan nama bean yang berbeda
 * Selain itu, saat kita mengakses bean nya, kita wajib menyebutkan nama bean nya, karena jika tidak, Spring akan bingung harus mengakses bean yang mana
+* Kode Duplikat Bean :
+       
+         @Bean
+      public Foo foo1(){
+        Foo foo = new Foo();
+        return foo ;
+      }
+    
+      @Bean
+      public Foo foo2(){
+         Foo foo = new Foo();
+        return foo();
+       }
+      }
+
+ ###Primary Bean
+* Jika terjadi duplicate bean, selain kita sebutkan nama bean nya ketika ingin mengakses bean nya, kita juga bisa pilih salah satu bean menjadi primary 
+* Dengan memilih salah satunya menjadi primary, secara otomatis jika kita mengakses bean tanpa menyebutkan nama bean nya, secara otomatis primary nya yang akan dipilih 
+* Untuk memilih primary bean, kita bisa tambahkan annotaiton @Primary
+* kode Primary bean :
+ 
+      @Primary
+      @Bean
+      public Foo foo1(){
+        Foo foo= new Foo();
+        return foo;
+      }
+    
+      @Bean
+      public Foo foo2(){
+        Foo foo= new Foo();
+        return foo;
+       }
+      }
+      
+ * Kode mengakses primary bean :
+    
+       Foo foo = applicationContext.getBean(Foo.class); 
+       Foo foo1 = applicationContext.getBean(name: "foo1", Foo.class); 
+       Foo foo2 = applicationContext.getBean(name: "foo2", Foo.class);
+ 
+       Assertions.assertSame(foo, foo1); 
+       Assertions.assertNotSame(foo1, foo2);
+      
+  ###Mengubah Nama Bean
+* Secara default, nama bean diambil dari nama method 
+* Namun kadang-kadang kita tidak ingin menggunakan nama method untuk nama bean 
+* Saat project kita sudah besar, kadang bisa jadi nama method sama, walaupun isi bean nya berbeda, dan di Spring, nama bean itu unik, tidak boleh sama 
+* Jika kita ingin mengubah nama bean, kita bisa menggunakan method value() milik annotation @Bean
+
