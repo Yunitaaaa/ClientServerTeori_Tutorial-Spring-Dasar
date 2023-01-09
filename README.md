@@ -72,22 +72,23 @@ Membuat Singleton di Java
 * Selanjutnya constructor nya dibuat private, agar tidak bisa diakses dari luar
 * Sehingga user terpaksa menggunakan method static tersebut ketika ingin membuat object nya
 * Kode : Singleton Class
-   public class Database {
+        
+        public class Database {
     
-    private static Database database;
+        private static Database database;
     
-    public static Database getInstance(){
-        if (database == null){
+          public static Database getInstance(){
+          if (database == null){
             database = new Database();
         }
         return database;
-    }
+        }
     
-    private Database(){
+        private Database(){
         //can not instantiate database class
-    }
+       }
     
-}
+      }
 
  
 ### Bean
