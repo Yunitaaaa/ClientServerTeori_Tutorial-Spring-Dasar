@@ -130,7 +130,7 @@ Membuat Singleton di Java
  
 --> getBean(Foo.class) : akan mengembalikan object yang sama, methodenya akan dieksekusi diawal
 
-###Duplicate Bean
+### Duplicate Bean
 * Di Spring, kita bisa mendaftarkan beberapa bean dengan tipe yang sama 
 * Namun perlu diperhatikan, jika kita membuat bean dengan tipe data yang sama, maka kita harus menggunakan nama bean yang berbeda
 * Selain itu, saat kita mengakses bean nya, kita wajib menyebutkan nama bean nya, karena jika tidak, Spring akan bingung harus mengakses bean yang mana
@@ -149,7 +149,7 @@ Membuat Singleton di Java
        }
       }
 
- ###Primary Bean
+ ### Primary Bean
 * Jika terjadi duplicate bean, selain kita sebutkan nama bean nya ketika ingin mengakses bean nya, kita juga bisa pilih salah satu bean menjadi primary 
 * Dengan memilih salah satunya menjadi primary, secara otomatis jika kita mengakses bean tanpa menyebutkan nama bean nya, secara otomatis primary nya yang akan dipilih 
 * Untuk memilih primary bean, kita bisa tambahkan annotaiton @Primary
@@ -178,7 +178,7 @@ Membuat Singleton di Java
        Assertions.assertSame(foo, foo1); 
        Assertions.assertNotSame(foo1, foo2);
       
-  ###Mengubah Nama Bean
+  ### Mengubah Nama Bean
 * Secara default, nama bean diambil dari nama method 
 * Namun kadang-kadang kita tidak ingin menggunakan nama method untuk nama bean 
 * Saat project kita sudah besar, kadang bisa jadi nama method sama, walaupun isi bean nya berbeda, dan di Spring, nama bean itu unik, tidak boleh sama 
